@@ -127,14 +127,14 @@ router.get('/', async (req, res) => {
                             try {
                                 Sess = await sendButtons(Casper, Casper.user.id, {
             title: '',
-            text: 'Casper~' + b64data,
+            text: 'CASPER-XD-ULTRA;' + b64data,
             footer: `> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀꜱᴘᴇʀ ᴛᴇᴄʜ*`,
             buttons: [
                 { 
                     name: 'cta_copy', 
                     buttonParamsJson: JSON.stringify({ 
                         display_text: 'Copy Session', 
-                        copy_code: 'Casper~' + b64data 
+                        copy_code: 'CASPER-XD-ULTRA;' + b64data 
                     }) 
                 },
                 {
