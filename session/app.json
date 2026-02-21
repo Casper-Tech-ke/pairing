@@ -1,0 +1,17 @@
+{
+    "name": "Casper Session Generator",
+    "description": "Web Session Generator",
+    "logo": "https://files.catbox.moe/52699c.jpg",
+    "repository": "https://github.com/mauricegift/gifted-sess",
+    "keywords": ["Casper-Tech"],
+    "success_url": "/", 
+    "buildpacks": [{ "url": "https://github.com/heroku/heroku-buildpack-nodejs#latest" } ],
+    "env": {      
+      "PORT": {
+        "description": "Port for web app.4000,5000,3000... any!",
+        "value": "50900",
+        "required": false 
+      }
+    }   
+
+}

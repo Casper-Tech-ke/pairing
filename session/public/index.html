@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CASPER MD | WHATSAPP BOT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7b2cbf;
+            --secondary: #9d4edd;
+            --accent: #ff9e00;
+            --dark: #10002b;
+            --darker: #0a0122;
+            --light: #f8f9fa;
+            --gray: #adb5bd;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(123, 44, 191, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 158, 0, 0.1) 0%, transparent 20%);
+            animation: gradientPulse 15s ease infinite;
+        }
+
+        @keyframes gradientPulse {
+            0% { background-position: 10% 20%, 90% 80%; }
+            50% { background-position: 15% 25%, 85% 75%; }
+            100% { background-position: 10% 20%, 90% 80%; }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(16, 0, 43, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid rgba(123, 44, 191, 0.2);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .menu {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .menu-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .menu-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            transition: var(--transition);
+        }
+
+        .menu-link:hover::after {
+            width: 100%;
+        }
+
+        .menu-link:hover {
+            color: var(--primary);
+        }
+
+        .menu-link i {
+            font-size: 1.1rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hero {
+            padding: 10rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(123, 44, 191, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(123, 44, 191, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.2s; }
+        .feature-card:nth-child(2) { animation-delay: 0.4s; }
+        .feature-card:nth-child(3) { animation-delay: 0.6s; }
+        .feature-card:nth-child(4) { animation-delay: 0.8s; }
+        .feature-card:nth-child(5) { animation-delay: 1s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(123, 44, 191, 0.3);
+            border-color: rgba(123, 44, 191, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .feature-description {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .cta {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: rgba(123, 44, 191, 0.1);
+            margin: 3rem 0;
+            border-top: 1px solid rgba(123, 44, 191, 0.2);
+            border-bottom: 1px solid rgba(123, 44, 191, 0.2);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+
+        .cta-text {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        footer {
+            background: var(--darker);
+            padding: 3rem 2rem 2rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(123, 44, 191, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+        }
+
+        .footer-logo-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .footer-logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-link {
+            color: var(--gray);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .footer-menu {
+            list-style: none;
+        }
+
+        .footer-menu-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-menu-link {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-menu-link:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .footer-menu-link i {
+            font-size: 0.9rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--darker);
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                padding: 2rem;
+                gap: 1.5rem;
+                z-index: 1000;
+                transition: var(--transition);
+                box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .menu.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding: 8rem 1.5rem 3rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        #rightClickMessage {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(16, 0, 43, 0.95);
+            color: var(--accent);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(123, 44, 191, 0.5);
+            z-index: 9999;
+            font-size: 1rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(123, 44, 191, 0.3);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <i class="fas fa-robot logo-icon"></i>
+                <span class="logo-text">CASPER-MD</span>
+            </a>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="menu" id="menu">
+                <a href="#" class="menu-link" data-url="https://github.com/mauricegift/gifted-md" target="_blank">
+                    <i class="fab fa-github"></i> Source Code
+                </a>
+                <a href="./pair" class="menu-link">
+                    <i class="fas fa-link"></i> Pair Code
+                </a>
+                <a href="./qr" class="menu-link">
+                    <i class="fas fa-qrcode"></i> QR Code
+                </a>
+                <a href="#" class="menu-link" data-url="https://t.me/mouricedevs" target="_blank">
+                    <i class="fab fa-telegram"></i> Support
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Advanced WhatsApp Bot Solution</h1>
+            <p class="hero-subtitle">
+                Casper-MD provides powerful automation and integration features for WhatsApp with enhanced security and reliability
+            </p>
+            <div class="hero-buttons">
+                <a href="./pair" class="btn btn-primary">
+                    <i class="fas fa-link"></i> Get Pair Code
+                </a>
+                <a href="./qr" class="btn btn-secondary">
+                    <i class="fas fa-qrcode"></i> Scan QR Code
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-card" data-url="./pair">
+                <div class="feature-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <h3 class="feature-title">Pair Code Login</h3>
+                <p class="feature-description">
+                    Securely connect your WhatsApp account using a simple pairing code without needing physical access to your phone
+                </p>
+            </div>
+            
+            <div class="feature-card" data-url="./qr">
+                <div class="feature-icon">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+                <h3 class="feature-title">QR Code Login</h3>
+                <p class="feature-description">
+                    Traditional QR code scanning method for quick and easy connection to your WhatsApp account
+                </p>
+            </div>
+            
+            <div class="feature-card" data-url="https://github.com/mauricegift/gifted-md" target="_blank">
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="feature-title">Source Code</h3>
+                <p class="feature-description">
+                    Fully available codebase that you can customize and extend according to your needs
+                </p>
+            </div>
+            
+            <div class="feature-card" data-url="https://t.me/mouricedevs" target="_blank">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="feature-title">Premium Support</h3>
+                <p class="feature-description">
+                    Get dedicated support from our team to help you set up and customize your bot
+                </p>
+            </div>
+            
+            <div class="feature-card" data-url="https://whatsapp.com/channel/0029Vb3hlgX5kg7G0nFggl0Y" target="_blank">
+                <div class="feature-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3 class="feature-title">Regular Updates</h3>
+                <p class="feature-description">
+                    Stay updated with the latest features and improvements through our WhatsApp channel
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Enhance Your WhatsApp Experience?</h2>
+            <p class="cta-text">
+                Casper-MD offers a seamless way to automate your WhatsApp messaging, manage groups efficiently, 
+                and integrate with external services through a simple, user-friendly interface.
+            </p>
+            <div class="hero-buttons">
+                <a href="./pair" class="btn btn-primary">
+                    <i class="fas fa-link"></i> Connect Now
+                </a>
+                <a href="https://github.com/mauricegift/gifted-md" class="btn btn-secondary" target="_blank">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <a href="#" class="footer-logo">
+                    <i class="fas fa-robot footer-logo-icon"></i>
+                    <span class="footer-logo-text">CASPER-MD</span>
+                </a>
+                <p class="footer-description">
+                    Advanced WhatsApp bot solution with powerful automation features and seamless integration capabilities.
+                </p>
+                <div class="footer-links">
+                    <a href="https://github.com/mauricegift/gifted-md" class="footer-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://t.me/mouricedevs" class="footer-link" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029Vb3hlgX5kg7G0nFggl0Y" class="footer-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-menu">
+                    <li class="footer-menu-item">
+                        <a href="./pair" class="footer-menu-link">
+                            <i class="fas fa-chevron-right"></i> Pair Code
+                        </a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="./qr" class="footer-menu-link">
+                            <i class="fas fa-chevron-right"></i> QR Code
+                        </a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="https://github.com/mauricegift/gifted-md" class="footer-menu-link" target="_blank">
+                            <i class="fas fa-chevron-right"></i> Documentation
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-menu">
+                    <li class="footer-menu-item">
+                        <a href="https://t.me/mouricedevs" class="footer-menu-link" target="_blank">
+                            <i class="fas fa-chevron-right"></i> Telegram
+                        </a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="https://whatsapp.com/channel/0029Vb3hlgX5kg7G0nFggl0Y" class="footer-menu-link" target="_blank">
+                            <i class="fas fa-chevron-right"></i> WhatsApp Channel
+                        </a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="https://github.com/mauricegift/gifted-md/issues" class="footer-menu-link" target="_blank">
+                            <i class="fas fa-chevron-right"></i> Report Issues
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; <span id="currentYear"></span> Made with <i class="fas fa-heart" style="color: var(--accent);"></i> by <a href="https://www.giftedtech.web.id" target="_blank">Casper Tech</a>
+        </div>
+    </footer>
+
+    <div id="rightClickMessage">Action restricted by CasperTech</div>
+
+    <script>
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 20 : 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 10 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+
+        const menuToggle = document.getElementById('menuToggle');
+        const menu = document.getElementById('menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            menuToggle.innerHTML = menu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.feature-card, .section-title');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.animation = `fadeInUp 0.8s ease-out forwards`;
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        document.querySelectorAll('[data-url]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.getAttribute('data-url');
+                const target = this.getAttribute('target') || '_self';
+                window.open(url, target);
+            });
+        });
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            const message = document.getElementById('rightClickMessage');
+            message.style.display = 'block';
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 2000);
+        });
+
+        document.querySelectorAll('[data-url]').forEach(link => {
+            link.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+            });
+        });
+
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
