@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/pairing', (req, res) => {
-  res.redirect('https://github.com/Casper-Tech-ke/CASPER-XD-ULTRA');
+  res.redirect('https://github.com/Casper-Tech-ke/pairing');
 });
 
 
