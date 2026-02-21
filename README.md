@@ -40,6 +40,9 @@
   <a href="https://github.com/Casper-Tech-ke">
     <img src="https://img.shields.io/badge/GitHub-Casper--Tech--ke-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub"/>
   </a>
+  <a href="https://xcasper.space">
+    <img src="https://img.shields.io/badge/Other%20Projects-xcasper.space-ff9e00?style=flat-square&logo=google-chrome&logoColor=white" alt="Other Projects"/>
+  </a>
 </p>
 
 ---

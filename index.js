@@ -30,6 +30,10 @@ app.get('/pairing', (req, res) => {
   res.redirect('https://github.com/Casper-Tech-ke/pairing');
 });
 
+app.get('/projects', (req, res) => {
+  res.redirect('https://xcasper.space');
+});
+
 
 app.get('/health', (req, res) => {
     res.json({
