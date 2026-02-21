@@ -29,7 +29,7 @@
 
 <p align="center">
   <a href="https://t.me/casper_tech_ke">
-    <img src="https://img.shields.io/badge/Telegram-Support-2CA5E0?style=flat-square&logo=telegram&logoColor=white" alt="Telegram"/>
+    <img src="https://img.shields.io/badge/Telegram-Casper%20Tech-2CA5E0?style=flat-square&logo=telegram&logoColor=white" alt="Telegram"/>
   </a>
   <a href="https://whatsapp.com/channel/0029VbCK8vlKwqSSkFkC1l2k">
     <img src="https://img.shields.io/badge/WhatsApp-Channel%201-25D366?style=flat-square&logo=whatsapp&logoColor=white" alt="WhatsApp Channel 1"/>
@@ -50,28 +50,34 @@ This is the **Pairing** tool for the [CASPER XD ULTRA](https://github.com/Casper
 
 This is **not** the bot itself. To get the bot, visit the [CASPER XD ULTRA repository](https://github.com/Casper-Tech-ke/CASPER-XD-ULTRA).
 
+> **Source Code Provider:** This project is built upon source code originally provided by [Gifted Tech](https://github.com/mauricegift).
+> 
+> **Developed & Completed by:** [CASPER TECH KENYA DEVELOPERS](https://github.com/Casper-Tech-ke)
+
 ---
 
 ## Features
 
-- **Pair Code Login** - Connect your WhatsApp using a simple pairing code without scanning
-- **QR Code Login** - Traditional QR code scanning for quick connection
-- **Session Compression** - Sessions are compressed with zlib for compact storage
-- **Copy Button** - One-tap copy of your session ID directly from WhatsApp
-- **Auto Cleanup** - Temporary session files are automatically removed after use
-- **No Reconnection** - After a successful pairing, the connection closes cleanly with no extra reconnections
-- **Responsive UI** - Beautiful dark-themed interface that works on all devices
-- **Particle Effects** - Animated background for a premium look and feel
+| Feature | Description |
+|---------|-------------|
+| :link: **Pair Code Login** | Connect your WhatsApp using a simple pairing code without scanning |
+| :camera: **QR Code Login** | Traditional QR code scanning for quick connection |
+| :compression: **Session Compression** | Sessions are compressed with zlib for compact storage |
+| :clipboard: **Copy Button** | One-tap copy of your session ID directly from WhatsApp |
+| :broom: **Auto Cleanup** | Temporary session files are automatically removed after use |
+| :no_entry_sign: **No Reconnection** | After a successful pairing, the connection closes cleanly |
+| :iphone: **Responsive UI** | Beautiful dark-themed interface that works on all devices |
+| :sparkles: **Particle Effects** | Animated background for a premium look and feel |
 
 ---
 
 ## How It Works
 
-1. Open the pairing website
-2. Choose **Pair Code** or **QR Code** method
-3. Enter your phone number (for pair code) or scan the QR code
-4. A session ID will be sent to your WhatsApp
-5. Copy the session ID and use it in the [CASPER XD ULTRA](https://github.com/Casper-Tech-ke/CASPER-XD-ULTRA) bot
+1. :globe_with_meridians: Open the pairing website
+2. :point_right: Choose **Pair Code** or **QR Code** method
+3. :phone: Enter your phone number (for pair code) or scan the QR code
+4. :incoming_envelope: A session ID will be sent to your WhatsApp
+5. :white_check_mark: Copy the session ID and use it in the [CASPER XD ULTRA](https://github.com/Casper-Tech-ke/CASPER-XD-ULTRA) bot
 
 ---
 
@@ -87,13 +93,13 @@ Use this session ID when configuring the [CASPER XD ULTRA](https://github.com/Ca
 
 ---
 
-## Deploy the Pairing Tool
+## :rocket: Deploy the Pairing Tool
 
 Deploy this pairing tool on any platform of your choice. Below are detailed instructions for each method.
 
 ---
 
-### 1. Replit Deployment (Recommended for Beginners)
+### :one: Replit Deployment (Recommended for Beginners)
 
 The easiest way to deploy. No server setup required.
 
@@ -113,11 +119,11 @@ The easiest way to deploy. No server setup required.
 
 **Step 4:** To keep it running 24/7, click **Publish** in the top right corner and follow the prompts to deploy.
 
-> **Tip:** Replit handles everything for you - no need to install Node.js, manage servers, or configure ports.
+> :bulb: **Tip:** Replit handles everything for you - no need to install Node.js, manage servers, or configure ports.
 
 ---
 
-### 2. Heroku Deployment
+### :two: Heroku Deployment
 
 **Step 1:** Click the button below to deploy directly to Heroku:
 
@@ -131,7 +137,7 @@ The easiest way to deploy. No server setup required.
 
 ---
 
-### 3. Render Deployment
+### :three: Render Deployment
 
 **Step 1:** Go to [Render Dashboard](https://dashboard.render.com)
 
@@ -155,7 +161,7 @@ The easiest way to deploy. No server setup required.
 
 ---
 
-### 4. Koyeb Deployment
+### :four: Koyeb Deployment
 
 <a href="https://app.koyeb.com">
   <img src="https://img.shields.io/badge/-DEPLOY%20TO%20KOYEB-121212?style=for-the-badge&logo=koyeb&logoColor=white" alt="Deploy to Koyeb"/>
@@ -171,14 +177,14 @@ The easiest way to deploy. No server setup required.
 
 ---
 
-### 5. VPS / Self-Hosting Deployment
+### :five: VPS / Self-Hosting Deployment
 
 For advanced users who want full control over their deployment.
 
 **Prerequisites:**
-- A VPS or server (Ubuntu/Debian recommended)
-- SSH access to your server
-- Node.js 18+ installed
+- :white_check_mark: A VPS or server (Ubuntu/Debian recommended)
+- :key: SSH access to your server
+- :green_circle: Node.js 18+ installed
 
 **Step 1: Install Node.js**
 ```bash
@@ -214,15 +220,15 @@ pm2 save
 **Useful PM2 Commands:**
 | Command | Description |
 |---------|-------------|
-| `pm2 logs casper-pairing` | View live logs |
-| `pm2 restart casper-pairing` | Restart the app |
-| `pm2 stop casper-pairing` | Stop the app |
-| `pm2 delete casper-pairing` | Remove from PM2 |
-| `pm2 monit` | Monitor resources |
+| `pm2 logs casper-pairing` | :page_facing_up: View live logs |
+| `pm2 restart casper-pairing` | :arrows_counterclockwise: Restart the app |
+| `pm2 stop casper-pairing` | :stop_sign: Stop the app |
+| `pm2 delete casper-pairing` | :wastebasket: Remove from PM2 |
+| `pm2 monit` | :bar_chart: Monitor resources |
 
 ---
 
-### 6. cPanel Deployment
+### :six: cPanel Deployment
 
 **Step 1:** Upload the project files to your cPanel file manager
 
@@ -237,7 +243,7 @@ pm2 save
 
 ---
 
-## Using the Session in CASPER XD ULTRA Bot
+## :gear: Using the Session in CASPER XD ULTRA Bot
 
 After generating a session with this pairing tool, you'll receive a session ID starting with `CASPER-XD-ULTRA;`. Here's how to use it in the bot:
 
@@ -272,7 +278,7 @@ module.exports = { loadSession };
 
 ---
 
-## Project Structure
+## :file_folder: Project Structure
 
 ```
 Pairing/
@@ -297,32 +303,66 @@ Pairing/
 
 ---
 
-## Security Policy
+## :shield: Security Policy
 
 This project allows **forking** but requires proper credit to the original author. See [SECURITY.md](./SECURITY.md) for full details.
 
 **You MUST:**
-- Keep credit to **TRABY CASPER** in all forks and copies
-- Not remove or alter author attribution
-- Not claim this project as your own
+- :white_check_mark: Keep credit to **TRABY CASPER** and **CASPER TECH KENYA DEVELOPERS** in all forks and copies
+- :white_check_mark: Credit **Gifted Tech** as the original source code provider
+- :no_entry: Not remove or alter author attribution
+- :no_entry: Not claim this project as your own
 
 ---
 
-## Author
+## :handshake: Credits & Support
+
+### Developed By - CASPER TECH KENYA DEVELOPERS
 
 <p align="center">
   <b>TRABY CASPER</b><br>
-  <i>Casper Tech</i>
+  <a href="https://github.com/Casper-Tech-ke">CASPER TECH KENYA DEVELOPERS</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/Casper-Tech-ke">GitHub</a> |
-  <a href="https://t.me/casper_tech_ke">Telegram</a> |
-  <a href="https://whatsapp.com/channel/0029VbCK8vlKwqSSkFkC1l2k">WhatsApp Channel</a>
+  <a href="https://github.com/Casper-Tech-ke">
+    <img src="https://img.shields.io/badge/GitHub-Casper--Tech--ke-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+  </a>
+  <a href="https://t.me/casper_tech_ke">
+    <img src="https://img.shields.io/badge/Telegram-Casper%20Tech-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram"/>
+  </a>
+  <a href="https://whatsapp.com/channel/0029VbCK8vlKwqSSkFkC1l2k">
+    <img src="https://img.shields.io/badge/WhatsApp-Channel%201-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp"/>
+  </a>
+  <a href="https://whatsapp.com/channel/0029Vb6XJQQHrDZi1RzKu90t">
+    <img src="https://img.shields.io/badge/WhatsApp-Channel%202-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp"/>
+  </a>
+</p>
+
+---
+
+### Source Code Provider - Gifted Tech
+
+<p align="center">
+  The original source code for this pairing tool was provided by <b>Gifted Tech</b>.<br>
+  We acknowledge and thank Gifted Tech for the foundation of this project.
+</p>
+
+<p align="center">
+  <a href="https://github.com/mauricegift">
+    <img src="https://img.shields.io/badge/GitHub-mauricegift-181717?style=for-the-badge&logo=github&logoColor=white" alt="Gifted Tech GitHub"/>
+  </a>
+  <a href="https://www.giftedtech.co.ke">
+    <img src="https://img.shields.io/badge/Website-giftedtech.co.ke-7b2cbf?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Gifted Tech Website"/>
+  </a>
+  <a href="https://api.whatsapp.com/send?phone=254728782591">
+    <img src="https://img.shields.io/badge/WhatsApp-Gifted%20Tech-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Gifted Tech WhatsApp"/>
+  </a>
 </p>
 
 ---
 
 <p align="center">
-  <b>Copyright (c) 2024-2026 TRABY CASPER. All rights reserved.</b>
+  <b>Copyright (c) 2024-2026 TRABY CASPER | CASPER TECH KENYA DEVELOPERS</b><br>
+  <i>Source code originally by <a href="https://github.com/mauricegift">Gifted Tech</a></i>
 </p>
