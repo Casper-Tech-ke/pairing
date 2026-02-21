@@ -26,6 +26,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.get('/pairing', (req, res) => {
+  res.redirect('https://github.com/Casper-Tech-ke/CASPER-XD-ULTRA');
+});
+
 
 app.get('/health', (req, res) => {
     res.json({
