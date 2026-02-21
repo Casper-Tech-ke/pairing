@@ -31,7 +31,7 @@ app.get('/health', (req, res) => {
     res.json({
         status: 200,
         success: true,
-        service: 'Casper-Md Session',
+        service: 'Pairing',
         timestamp: new Date().toISOString()
     });
 });
@@ -40,7 +40,7 @@ app.listen(PORT, '0.0.0.0', () => {
     console.log(`
 Deployment Successful!
 
- Casper-Session-Server Running on http://localhost:` + PORT)
+ Pairing Server Running on http://localhost:` + PORT)
 })
 
 module.exports = app

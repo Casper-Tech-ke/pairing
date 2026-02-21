@@ -1,5 +1,5 @@
 {
-  "name": "casper-xd-ultra-session",
+  "name": "pairing",
   "main": "./index.js",
   "type": "commonjs",
   "scripts": {
