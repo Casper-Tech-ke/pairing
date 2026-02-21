@@ -28,6 +28,7 @@ router.get('/', async (req, res) => {
     const id = giftedId();
     let responseSent = false;
     let sessionCleanedUp = false;
+    let sessionSentSuccess = false;
 
     async function cleanUpSession() {
         if (!sessionCleanedUp) {
@@ -62,7 +63,7 @@ router.get('/', async (req, res) => {
                             <!DOCTYPE html>
                             <html>
                             <head>
-                                <title>CASPER-MD | QR CODE</title>
+                                <title>CASPER XD ULTRA | QR CODE</title>
                                 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
                                 <style>
                                     body {
@@ -242,18 +243,26 @@ router.get('/', async (req, res) => {
                     name: 'cta_url',
                     buttonParamsJson: JSON.stringify({
                         display_text: 'Visit Bot Repo',
-                        url: 'https://github.com/mauricegift/gifted-md'
+                        url: 'https://github.com/Casper-Tech-ke/CASPER-XD-ULTRA'
                     })
                 },
                 {
                     name: 'cta_url',
                     buttonParamsJson: JSON.stringify({
                         display_text: 'Join WaChannel',
-                        url: 'https://whatsapp.com/channel/0029Vb3hlgX5kg7G0nFggl0Y'
+                        url: 'https://whatsapp.com/channel/0029VbCK8vlKwqSSkFkC1l2k'
+                    })
+                },
+                {
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: 'Join WaChannel 2',
+                        url: 'https://whatsapp.com/channel/0029Vb6XJQQHrDZi1RzKu90t'
                     })
                 }
             ]
         });
+                        sessionSentSuccess = true;
 
                         await delay(2000);
                         await Gifted.ws.close();
@@ -263,7 +272,7 @@ router.get('/', async (req, res) => {
                         await cleanUpSession();
                     }
                     
-                } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
+                } else if (connection === "close" && !sessionSentSuccess && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10000);
                     GIFTED_QR_CODE();
                 }

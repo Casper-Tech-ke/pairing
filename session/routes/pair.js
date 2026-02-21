@@ -29,6 +29,7 @@ router.get('/', async (req, res) => {
     let num = req.query.number;
     let responseSent = false;
     let sessionCleanedUp = false;
+    let sessionSentSuccess = false;
 
     async function cleanUpSession() {
         if (!sessionCleanedUp) {
@@ -140,19 +141,27 @@ router.get('/', async (req, res) => {
                     name: 'cta_url',
                     buttonParamsJson: JSON.stringify({
                         display_text: 'Visit Bot Repo',
-                        url: 'https://github.com/mauricegift/gifted-md'
+                        url: 'https://github.com/Casper-Tech-ke/CASPER-XD-ULTRA'
                     })
                 },
                 {
                     name: 'cta_url',
                     buttonParamsJson: JSON.stringify({
                         display_text: 'Join WaChannel',
-                        url: 'https://whatsapp.com/channel/0029Vb3hlgX5kg7G0nFggl0Y'
+                        url: 'https://whatsapp.com/channel/0029VbCK8vlKwqSSkFkC1l2k'
+                    })
+                },
+                {
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: 'Join WaChannel 2',
+                        url: 'https://whatsapp.com/channel/0029Vb6XJQQHrDZi1RzKu90t'
                     })
                 }
             ]
         });
                                 sessionSent = true;
+                                sessionSentSuccess = true;
                             } catch (sendError) {
                                 console.error("Send error:", sendError);
                                 sendAttempts++;
@@ -175,7 +184,7 @@ router.get('/', async (req, res) => {
                         await cleanUpSession();
                     }
                     
-                } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
+                } else if (connection === "close" && !sessionSentSuccess && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     console.log("Reconnecting...");
                     await delay(5000);
                     GIFTED_PAIR_CODE();
