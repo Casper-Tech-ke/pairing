@@ -1,7 +1,7 @@
 const { 
-    giftedId,
+    casperId,
     removeFile
-} = require('../gift');
+} = require('../lib');
 const QRCode = require('qrcode');
 const express = require('express');
 const zlib = require('zlib');
@@ -11,7 +11,7 @@ let router = express.Router();
 const pino = require("pino");
 const { sendButtons } = require('gifted-btns');
 const {
-    default: giftedConnect,
+    default: casperConnect,
     useMultiFileAuthState,
     Browsers,
     delay,
@@ -25,7 +25,7 @@ const sessionDir = path.join(__dirname, "session");
 
 
 router.get('/', async (req, res) => {
-    const id = giftedId();
+    const id = casperId();
     let responseSent = false;
     let sessionCleanedUp = false;
     let sessionSentSuccess = false;
@@ -37,12 +37,12 @@ router.get('/', async (req, res) => {
         }
     }
 
-    async function GIFTED_QR_CODE() {
+    async function CASPER_QR_CODE() {
         const { version } = await fetchLatestBaileysVersion();
         console.log(version);
         const { state, saveCreds } = await useMultiFileAuthState(path.join(sessionDir, id));
         try {
-            let Gifted = giftedConnect({
+            let Casper = casperConnect({
                 version,
                 auth: state,
                 printQRInTerminal: false,
@@ -52,8 +52,8 @@ router.get('/', async (req, res) => {
                 keepAliveIntervalMs: 30000
             });
 
-            Gifted.ev.on('creds.update', saveCreds);
-            Gifted.ev.on("connection.update", async (s) => {
+            Casper.ev.on('creds.update', saveCreds);
+            Casper.ev.on("connection.update", async (s) => {
                 const { connection, lastDisconnect, qr } = s;
                 
                 if (qr && !responseSent) {
@@ -227,7 +227,7 @@ router.get('/', async (req, res) => {
                     try {
                         let compressedData = zlib.gzipSync(sessionData);
                         let b64data = compressedData.toString('base64');
-                        const Sess = await sendButtons(Gifted, Gifted.user.id, {
+                        const Sess = await sendButtons(Casper, Casper.user.id, {
             title: '',
             text: 'Casper~' + b64data,
             footer: `> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀꜱᴘᴇʀ ᴛᴇᴄʜ*`,
@@ -265,7 +265,7 @@ router.get('/', async (req, res) => {
                         sessionSentSuccess = true;
 
                         await delay(2000);
-                        await Gifted.ws.close();
+                        await Casper.ws.close();
                     } catch (sendError) {
                         console.error("Error sending session:", sendError);
                     } finally {
@@ -274,7 +274,7 @@ router.get('/', async (req, res) => {
                     
                 } else if (connection === "close" && !sessionSentSuccess && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10000);
-                    GIFTED_QR_CODE();
+                    CASPER_QR_CODE();
                 }
             });
         } catch (err) {
@@ -288,7 +288,7 @@ router.get('/', async (req, res) => {
     }
 
     try {
-        await GIFTED_QR_CODE();
+        await CASPER_QR_CODE();
     } catch (finalError) {
         console.error("Final error:", finalError);
         await cleanUpSession();

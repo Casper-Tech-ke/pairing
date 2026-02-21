@@ -2,7 +2,7 @@
     "name": "Casper Session Generator",
     "description": "Web Session Generator",
     "logo": "https://files.catbox.moe/52699c.jpg",
-    "repository": "https://github.com/mauricegift/gifted-sess",
+    "repository": "https://github.com/Casper-Tech-ke/CASPER-XD-ULTRA",
     "keywords": ["Casper-Tech"],
     "success_url": "/", 
     "buildpacks": [{ "url": "https://github.com/heroku/heroku-buildpack-nodejs#latest" } ],

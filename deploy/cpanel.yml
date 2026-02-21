@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/giftech-bots/home/giftedmd-session/public_html/
+    - export DEPLOYPATH=/casper-xd-ultra/public_html/
     - /bin/cp -R images $DEPLOYPATH
     
 

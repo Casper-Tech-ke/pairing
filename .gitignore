@@ -2,3 +2,4 @@
 node_modules
 .cache
 .local
+package-lock.json

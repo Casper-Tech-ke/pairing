@@ -1,11 +1,11 @@
 {
-  "name": "casper-session",
+  "name": "casper-xd-ultra-session",
   "main": "./index.js",
   "type": "commonjs",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Gifted Tech",
+  "author": "TRABY CASPER",
   "license": "GPL-3.0 license",
   "dependencies": {
     "@whiskeysockets/baileys": "npm:baileys@6.7.21",

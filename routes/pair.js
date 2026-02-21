@@ -1,8 +1,8 @@
 const { 
-    giftedId,
+    casperId,
     removeFile,
     generateRandomCode
-} = require('../gift');
+} = require('../lib');
 const zlib = require('zlib');
 const express = require('express');
 const fs = require('fs');
@@ -11,7 +11,7 @@ let router = express.Router();
 const pino = require("pino");
 const { sendButtons } = require('gifted-btns');
 const {
-    default: giftedConnect,
+    default: casperConnect,
     useMultiFileAuthState,
     delay,
     downloadContentFromMessage, 
@@ -25,7 +25,7 @@ const {
 const sessionDir = path.join(__dirname, "session");
 
 router.get('/', async (req, res) => {
-    const id = giftedId();
+    const id = casperId();
     let num = req.query.number;
     let responseSent = false;
     let sessionCleanedUp = false;
@@ -42,12 +42,12 @@ router.get('/', async (req, res) => {
         }
     }
 
-    async function GIFTED_PAIR_CODE() {
+    async function CASPER_PAIR_CODE() {
     const { version } = await fetchLatestBaileysVersion();
     console.log(version);
         const { state, saveCreds } = await useMultiFileAuthState(path.join(sessionDir, id));
         try {
-            let Gifted = giftedConnect({
+            let Casper = casperConnect({
                 version,
                 auth: {
                     creds: state.creds,
@@ -65,12 +65,12 @@ router.get('/', async (req, res) => {
                 keepAliveIntervalMs: 30000
             });
 
-            if (!Gifted.authState.creds.registered) {
+            if (!Casper.authState.creds.registered) {
                 await delay(1500);
                 num = num.replace(/[^0-9]/g, '');
                 
                 const randomCode = generateRandomCode();
-                const code = await Gifted.requestPairingCode(num, randomCode);
+                const code = await Casper.requestPairingCode(num, randomCode);
                 
                 if (!responseSent && !res.headersSent) {
                     res.json({ code: code });
@@ -78,8 +78,8 @@ router.get('/', async (req, res) => {
                 }
             }
 
-            Gifted.ev.on('creds.update', saveCreds);
-            Gifted.ev.on("connection.update", async (s) => {
+            Casper.ev.on('creds.update', saveCreds);
+            Casper.ev.on("connection.update", async (s) => {
                 const { connection, lastDisconnect } = s;
 
                 if (connection === "open") {
@@ -125,7 +125,7 @@ router.get('/', async (req, res) => {
 
                         while (sendAttempts < maxSendAttempts && !sessionSent) {
                             try {
-                                Sess = await sendButtons(Gifted, Gifted.user.id, {
+                                Sess = await sendButtons(Casper, Casper.user.id, {
             title: '',
             text: 'Casper~' + b64data,
             footer: `> *ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀꜱᴘᴇʀ ᴛᴇᴄʜ*`,
@@ -177,7 +177,7 @@ router.get('/', async (req, res) => {
                         }
 
                         await delay(3000);
-                        await Gifted.ws.close();
+                        await Casper.ws.close();
                     } catch (sessionError) {
                         console.error("Session processing error:", sessionError);
                     } finally {
@@ -187,7 +187,7 @@ router.get('/', async (req, res) => {
                 } else if (connection === "close" && !sessionSentSuccess && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     console.log("Reconnecting...");
                     await delay(5000);
-                    GIFTED_PAIR_CODE();
+                    CASPER_PAIR_CODE();
                 }
             });
 
@@ -202,7 +202,7 @@ router.get('/', async (req, res) => {
     }
 
     try {
-        await GIFTED_PAIR_CODE();
+        await CASPER_PAIR_CODE();
     } catch (finalError) {
         console.error("Final error:", finalError);
         await cleanUpSession();
