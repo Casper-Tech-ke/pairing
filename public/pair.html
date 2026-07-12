@@ -66,7 +66,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: var(--transition);
         }
 
         .home-btn:hover {
@@ -90,23 +89,6 @@
             margin-top: 2rem;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(138, 43, 226, 0.1) 0%,
-                rgba(255, 105, 180, 0.05) 50%,
-                transparent 100%
-            );
-            transform: rotate(30deg);
-            z-index: -1;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -116,25 +98,18 @@
             width: 100px;
             height: 100px;
             margin: 0 auto 1.5rem;
-            position: relative;
         }
 
         .logo svg {
             width: 100px;
             height: 100px;
             filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.4));
-            animation: pulseGlow 2s infinite alternate;
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(138, 43, 226, 0.4); }
-            100% { box-shadow: 0 0 25px rgba(138, 43, 226, 0.6); }
         }
 
         h1 {
             color: var(--primary);
             margin-bottom: 1rem;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
         }
@@ -159,7 +134,7 @@
 
         .input-container {
             position: relative;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .input-container i {
@@ -178,7 +153,6 @@
             background-color: var(--input-bg);
             color: var(--text);
             font-size: 1rem;
-            transition: var(--transition);
         }
 
         input[type="text"]:focus {
@@ -197,7 +171,6 @@
             font-size: 1rem;
             font-weight: 600;
             width: 100%;
-            transition: var(--transition);
             box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
             position: relative;
             overflow: hidden;
@@ -209,28 +182,10 @@
             box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
         }
 
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0.3) 0%,
-                rgba(255, 255, 255, 0) 60%
-            );
-            transform: translateX(-100%) rotate(30deg);
-            transition: all 0.6s ease;
-        }
-
-        .btn:hover::after {
-            transform: translateX(100%) rotate(30deg);
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         #result {
@@ -245,33 +200,12 @@
             border-left: 4px solid var(--primary);
         }
 
-        #loading-spinner {
-            display: none;
-            margin: 1.5rem 0;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto;
-            border: 4px solid rgba(138, 43, 226, 0.2);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         #pair-code {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
             margin: 1rem 0;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
             animation: textGlow 2s infinite alternate;
         }
 
@@ -292,7 +226,11 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .copy-btn {
@@ -322,7 +260,6 @@
             margin-top: 0.5rem;
             font-size: 0.9rem;
             display: none;
-            animation: shake 0.5s;
         }
 
         @keyframes shake {
@@ -338,33 +275,14 @@
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 1.5rem;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .home-btn {
-                top: 1rem;
-                right: 1rem;
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
+            .container { padding: 1.5rem; }
+            h1 { font-size: 1.4rem; }
+            .action-buttons { flex-direction: column; gap: 0.5rem; }
         }
 
         .particles {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             overflow: hidden;
         }
@@ -385,9 +303,7 @@
 <body>
     <div class="particles" id="particles"></div>
     
-    <a href="./" class="home-btn">
-        <i class="fas fa-home"></i> Home
-    </a>
+    <a href="./" class="home-btn"><i class="fas fa-home"></i> Home</a>
     
     <div class="container">
         <div class="logo">
@@ -406,23 +322,24 @@
         <h1>CASPER XD ULTRA PAIR CODE</h1>
         <p>Enter your WhatsApp number without + sign</p>
         
-        <div class="form-group">
-            <label for="phone-number">Phone Number</label>
-            <div class="input-container">
-                <i class="fas fa-comment"></i>
-                <input type="text" id="phone-number" placeholder="e.g., 2547xxxxxxxx" inputmode="numeric" pattern="[0-9]*">
+        <!-- Wrapped elements inside a standard semantic form element -->
+        <form id="pair-form">
+            <div class="form-group">
+                <label for="phone-number">Phone Number</label>
+                <div class="input-container">
+                    <i class="fas fa-comment"></i>
+                    <input type="text" id="phone-number" placeholder="e.g., 2547xxxxxxxx" inputmode="numeric" pattern="[0-9]*" required>
+                </div>
+                <div class="error-message" id="error-message">Please enter a valid phone number (10-15 digits)</div>
             </div>
-            <div class="error-message" id="error-message">Please enter a valid phone number (10-15 digits)</div>
-        </div>
-        
-        <button id="submit" class="btn">
-            <span id="btn-text">GET CODE</span>
-            <span id="btn-spinner" style="display: none;">
-                <i class="fas fa-spinner fa-spin"></i>
-            </span>
-        </button>
-        
-        <div id="loading-spinner" class="spinner"></div>
+            
+            <button type="submit" id="submit" class="btn">
+                <span id="btn-text">GET CODE</span>
+                <span id="btn-spinner" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </span>
+            </button>
+        </form>
         
         <div id="result">
             <p>Your pairing code is:</p>
@@ -446,33 +363,29 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
     <script>
+        // Particles Generator logic
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const particleCount = window.innerWidth < 768 ? 15 : 30;
-            
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
-                
                 const size = Math.random() * 10 + 5;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-                
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
-                
                 const duration = Math.random() * 10 + 10;
                 particle.style.animationDuration = `${duration}s`;
                 particle.style.animationDelay = `${Math.random() * 5}s`;
-                
                 particle.style.opacity = Math.random() * 0.5 + 0.1;
-                
                 particlesContainer.appendChild(particle);
             }
         }
-        
         createParticles();
 
+        // Control DOM references
+        const pairForm = document.getElementById('pair-form');
         const submitButton = document.getElementById('submit');
         const phoneNumberInput = document.getElementById('phone-number');
         const resultDiv = document.getElementById('result');
@@ -482,45 +395,45 @@
         const successMessage = document.getElementById('success-message');
         const btnText = document.getElementById('btn-text');
         const btnSpinner = document.getElementById('btn-spinner');
-        const loadingSpinner = document.getElementById('loading-spinner');
 
         function validatePhoneNumber(number) {
             const cleaned = number.replace(/\D/g, '');
             return cleaned.length >= 10 && cleaned.length <= 15;
         }
 
-        submitButton.addEventListener('click', async (e) => {
+        // Submitting through form element instead of button click
+        pairForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const phoneNumber = phoneNumberInput.value.trim();
             
             if (!validatePhoneNumber(phoneNumber)) {
                 errorMessage.style.display = 'block';
                 errorMessage.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    errorMessage.style.animation = '';
-                }, 500);
+                setTimeout(() => { errorMessage.style.animation = ''; }, 500);
                 return;
             }
             
             errorMessage.style.display = 'none';
-            
             btnText.style.display = 'none';
             btnSpinner.style.display = 'inline-block';
             submitButton.disabled = true;
             
             try {
                 const { data } = await axios.get(`/code?number=${phoneNumber}`);
-                const code = data.code || "ERROR";
+                // Safe parsing fallback check logic
+                let code = "ERROR";
+                if (data) {
+                    code = data.code || (typeof data === 'string' ? data : "ERROR");
+                }
                 
                 pairCodeDiv.textContent = code;
                 resultDiv.style.display = 'block';
-                
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 
             } catch (error) {
                 pairCodeDiv.textContent = "SERVICE ERROR";
                 resultDiv.style.display = 'block';
-                console.error("Error:", error);
+                console.error("Error fetching pairing metadata:", error);
             } finally {
                 btnText.style.display = 'inline-block';
                 btnSpinner.style.display = 'none';
@@ -530,22 +443,20 @@
 
         copyButton.addEventListener('click', () => {
             const code = pairCodeDiv.textContent;
+            if (!code || code === "ERROR" || code === "SERVICE ERROR") return;
+            
             navigator.clipboard.writeText(code).then(() => {
                 successMessage.style.display = 'block';
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 2000);
+                setTimeout(() => { successMessage.style.display = 'none'; }, 2000);
             });
         });
 
         phoneNumberInput.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/\D/g, '');
-            
             if (errorMessage.style.display === 'block') {
                 errorMessage.style.display = 'none';
             }
         });
     </script>
 </body>
-
 </html>
